@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice } from "@reduxjs/toolkit";
 import { User } from "../../types/user/UserType";
-import { DefaultFetchState, createFetchReducer } from "../generic/defaultFetchReducers";
+import { DefaultFetchState, createFetchReducers } from "../generic/defaultFetchReducers";
 
 
 interface UsersState extends DefaultFetchState<User[]>{
@@ -12,7 +12,7 @@ const initialState:UsersState = {
     data:[]
 }
 
-const {fail,success,pending} = createFetchReducer({});
+const {fail,success,pending} = createFetchReducers<UsersState,User[]>({});
 
 export const userSlice = createSlice({
     name:"users",
@@ -20,7 +20,7 @@ export const userSlice = createSlice({
     reducers:{
         fetchUsers:pending,
         fetchUsersSuccess:success,
-        fetchUsersFail:fail
+        fetchUsersFail:fail,
     }
 });
 

@@ -1,7 +1,7 @@
 import { Epic} from "redux-observable";
 import { getUsersQuery } from "../queries/getUsersQuery";
 import { createEpic } from "./generic/epicCreators";
-import { fetchUsersFail, fetchUsersSuccess } from "../../store/slices/usersSlice";
+import { fetchUsersFail, fetchUsersSuccess} from "../../store/slices/usersSlice";
 import { User } from "../../types/user/UserType";
 
 
