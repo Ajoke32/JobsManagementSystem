@@ -18,7 +18,7 @@ interface FetchReducer<TState,TData>{
     success:(state:TState,action:PayloadAction<TData>)=>void
 }
 
-export const createFetchReducer = function createDefaultFetchReducers<TState extends DefaultFetchState<TData>,TData>(
+export const createFetchReducers = function createDefaultFetchReducers<TState extends DefaultFetchState<TData>,TData>(
     {onSuccess,onFail}:CreateFetchReducerParams<TState,TData>
     ):FetchReducer<TState,TData>
 {
