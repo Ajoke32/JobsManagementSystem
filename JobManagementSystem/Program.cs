@@ -13,7 +13,7 @@ builder.Services.AddSpaStaticFiles(c =>
 });
 
 
-if (builder.Environment.IsDevelopment())
+/*if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddViteServices(conf =>
     {
@@ -24,7 +24,7 @@ if (builder.Environment.IsDevelopment())
         conf.Server.TimeOut = 15;
         conf.PackageDirectory = "clientApp";
     });
-}
+}*/
 
 builder.Services.AddInfrastructure();
 
@@ -61,7 +61,7 @@ app.UseSpa(spa =>
     
     if (app.Environment.IsDevelopment())
     {
-        app.UseViteDevMiddleware();
+       // app.UseViteDevMiddleware();
     }
 });
 

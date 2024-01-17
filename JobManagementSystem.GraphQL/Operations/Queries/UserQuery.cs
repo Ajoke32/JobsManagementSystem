@@ -1,4 +1,6 @@
 ﻿using Application.Abstraction.UnitOfWork;
+using Domain;
+using Domain.Errors;
 using Domain.Models;
 using GraphQL.Types;
 using GraphQL.Types.Common;
@@ -11,12 +13,16 @@ public sealed class UserQuery:ObjectGraphType
     {
         var userRepos = uow.GenericRepository<User>();
         
-        Field<ListGraphType<UserGraphType>>("all")
+        Field<NResultGraphType<List<User>>>("all")
             .ResolveAsync(async _ =>
             {
                 var users = await userRepos.GetAsync();
-
-                return users.ToList();
+                
+                return NoGenericResult<List<User>>.Match(
+                    predicate:(u)=>u.Count >3 ,
+                    users.ToList()
+                    );
             });
     }
+    
 }
