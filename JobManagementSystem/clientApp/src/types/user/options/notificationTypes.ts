@@ -11,12 +11,12 @@ enum NotificationType{
 
 
 interface NotificationBase{
-    message:string,
+    description:string,
     type:NotificationType
 }
 
 
 interface GenericNotification extends NotificationBase{
     value:any,
-    description:string,
+    message:string,
 }

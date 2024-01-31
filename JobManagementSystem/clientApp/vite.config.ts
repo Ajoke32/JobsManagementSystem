@@ -17,5 +17,6 @@ export default defineConfig({
       port:3001,
       protocol:'ws',
     }
-  }
+  },
+  
 });

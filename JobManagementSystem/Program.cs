@@ -34,6 +34,7 @@ if (builder.Environment.IsDevelopment())
         conf.Server.TimeOut = 15;
         conf.PackageDirectory = "clientApp";
     });
+    
 }
 
 builder.Services.AddInfrastructure();
@@ -115,8 +116,10 @@ app.UseSpa(spa =>
         }
     };
     
+    
     if (app.Environment.IsDevelopment())
     {
+       
        app.UseViteDevMiddleware();
     }
 });
