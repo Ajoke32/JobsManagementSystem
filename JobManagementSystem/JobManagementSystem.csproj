@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Folder Include="Abstraction\" />
       <Folder Include="clientApp\" />
     </ItemGroup>
 
@@ -21,5 +22,6 @@
     <ItemGroup>
         <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
         <ProjectReference Include="..\JobManagementSystem.GraphQL\JobManagementSystem.GraphQL.csproj" />
+        <ProjectReference Include="..\JobManagementSystem.Selenium\JobManagementSystem.Selenium.csproj" />
     </ItemGroup>
 </Project>

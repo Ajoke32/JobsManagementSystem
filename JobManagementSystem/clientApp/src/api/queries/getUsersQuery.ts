@@ -1,12 +1,21 @@
+import { errorFields } from "../fragments/errorFields";
 
 
 export const getUsersQuery = `
 query GetUsers{
     users{
         all{
-            id,
-            email
+            errors{
+                ...errorFields
+            },
+            isSuccess,
+            data{
+                id,
+                email
+            }
         }
     }
 }
+
+${errorFields}
 `
