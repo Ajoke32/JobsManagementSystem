@@ -6,9 +6,9 @@ public sealed class ResultGraphType<TValue,TError>:ObjectGraphType<Result<TValue
 {
     public ResultGraphType()
     {
-        Field(x => x.Error);
+        Field(x => x.Errors);
         
-        Field(x => x.Value);
+        Field(x => x.Data,nullable:true);
         
         Field(x => x.IsSuccess);
     }

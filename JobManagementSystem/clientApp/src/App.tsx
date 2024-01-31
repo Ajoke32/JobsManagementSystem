@@ -1,19 +1,18 @@
 import { Provider } from 'react-redux'
-import './App.css'
-import SomeComponent from './components/SomeComponents'
 import { store } from './store'
+import './App.css';
+import MainBody from "./components/ui/MainBody/MainBody.tsx";
+
+
 
 function App() {
   
 
   return (
     <Provider store={store}>
-    <>
-      <div>
-          App changed
-      </div>
-      <SomeComponent />
-    </>
+    <div className='main'>
+      <MainBody />
+    </div>
     </Provider>
   )
 }

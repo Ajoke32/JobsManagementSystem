@@ -10,6 +10,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobManagementSystem.GraphQL", "JobManagementSystem.GraphQL\JobManagementSystem.GraphQL.csproj", "{F146C2D5-ABA5-4E28-A1B1-6B5FE15BA633}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobManagementSystem.Selenium", "JobManagementSystem.Selenium\JobManagementSystem.Selenium.csproj", "{3F9DF067-9A0A-439A-867C-C3509235A77E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeleniumTestConsole", "SeleniumTestConsole\SeleniumTestConsole.csproj", "{4DC5D83B-1C04-4B88-A977-8CC1AF2B7801}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +40,13 @@ Global
 		{F146C2D5-ABA5-4E28-A1B1-6B5FE15BA633}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F146C2D5-ABA5-4E28-A1B1-6B5FE15BA633}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F146C2D5-ABA5-4E28-A1B1-6B5FE15BA633}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F9DF067-9A0A-439A-867C-C3509235A77E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F9DF067-9A0A-439A-867C-C3509235A77E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F9DF067-9A0A-439A-867C-C3509235A77E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F9DF067-9A0A-439A-867C-C3509235A77E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DC5D83B-1C04-4B88-A977-8CC1AF2B7801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DC5D83B-1C04-4B88-A977-8CC1AF2B7801}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DC5D83B-1C04-4B88-A977-8CC1AF2B7801}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DC5D83B-1C04-4B88-A977-8CC1AF2B7801}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -3,7 +3,7 @@ using Domain;
 using Domain.Errors;
 using Domain.Models;
 using GraphQL.Types;
-using GraphQL.Types.Common;
+
 
 namespace GraphQL.Operations.Queries;
 
@@ -13,15 +13,15 @@ public sealed class UserQuery:ObjectGraphType
     {
         var userRepos = uow.GenericRepository<User>();
         
-        Field<NResultGraphType<List<User>>>("all")
+        Field<ResultGraphType<List<User>,Error>>("all")
             .ResolveAsync(async _ =>
             {
                 var users = await userRepos.GetAsync();
-                
-                return NoGenericResult<List<User>>.Match(
-                    predicate:(u)=>u.Count >3 ,
-                    users.ToList()
-                    );
+
+                return Result<List<User>, Error>
+                    .Instance(users.ToList())
+                    .ErrorCase(val => val.Count == 0, UserErrors.UsersNotFound)
+                    .GetResult();
             });
     }
     

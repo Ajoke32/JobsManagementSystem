@@ -11,7 +11,17 @@ const defaultQueryFlow = <TData, TResponse>({responseResolver,query,actions}:Def
     return mergeMap(()=>{
         return ajaxQuery<TResponse>(query).pipe(
             map(res=>{
-                return success(responseResolver(res));
+                const {isSuccess,data,errors} = responseResolver(res);
+                
+                if(errors!==null && errors.length!==0){
+                    return fail(errors[0].message);        
+                }
+        
+                if(!isSuccess){
+                    return fail('operation failed, try again later or inform our support');
+                }
+                
+                return success(data);
             }),
             catchError(err=>of(fail(err)))
         );

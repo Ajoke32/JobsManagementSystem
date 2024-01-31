@@ -2,36 +2,45 @@
 
 public class Result<TValue, TError>
 {
-    public TValue? Value { get; }
+    private TValue? _value;
 
-    public TError? Error { get; }
+    public TValue? Data { get; private set; }
     
-    public bool  IsSuccess { get; }
+    public List<TError> Errors { get; }
+
+    public bool  IsSuccess { get; private set; }
 
     private Result(TValue value)
     {
-        Value = value;
-        IsSuccess = true;
-        Error = default;
+        Errors = [];
+        _value = value;
+    }
+    
+    
+    public static Result<TValue,TError> Instance(TValue value) => new(value);
+    
+    public Result<TValue, TError> ErrorCase(Func<TValue,bool> predicate,TError error)
+    {
+        if (predicate(_value!))
+        {
+            Errors.Add(error);
+        }
+        return this;
     }
 
-    private Result(TError error)
+    public Result<TValue, TError> GetResult()
     {
-        Error = error;
-        IsSuccess = false;
-        Value = default;
-    }
-    
-    public static implicit operator Result<TValue,TError>(TValue value) => new(value);
-    
-    public static implicit operator Result<TValue,TError>(TError error) => new(error);
-    
-    public Result<TValue, TError> Match(Func<TValue, Result<TValue, TError>> success, Func<TError, Result<TValue, TError>> failure)
-    {
-        if (IsSuccess)
+        if (Errors.Count == 0)
         {
-            return success(Value!);
+            Data = _value;
+            IsSuccess = true;
         }
-        return failure(Error!);
+        else
+        {
+            IsSuccess = false;
+        }
+        
+        return this;
     }
+    
 }
