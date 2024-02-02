@@ -1,4 +1,6 @@
-﻿namespace JobManagementSystem.Selenium.Options;
+﻿using Domain.Enums;
+
+namespace JobManagementSystem.Selenium.Options;
 
 public class ParsingAppOption
 {
@@ -15,4 +17,6 @@ public class ParsingAppOption
     public int MaxPages { get; set; }
     
     public int ItemsPerPage { get; set; }
+
+    public bool IsItemsReceivingEnabled { get; set; }
 }

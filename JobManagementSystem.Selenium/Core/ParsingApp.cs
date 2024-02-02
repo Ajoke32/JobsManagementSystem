@@ -10,6 +10,8 @@ public class ParsingApp:IParserApp
     private readonly  IParsingTemplate _template;
     
     private readonly IWebDriver  _driver;
+
+    private ParsingAppOption _options;
     
     public ParsingApp(IParsingTemplate template, IWebDriver driver)
     {
@@ -19,11 +21,12 @@ public class ParsingApp:IParserApp
 
     public void ConfigureParsingOptions(Func<ParsingAppOption,ParsingAppOption> action)
     {
-        action(new ParsingAppOption());
+        _options = action(new ParsingAppOption());
     }
     
     public void Start()
     {
+        _template.ApplyOptions(_options);
         _template.Parse();
     }
 
