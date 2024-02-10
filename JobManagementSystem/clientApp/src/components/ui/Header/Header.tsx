@@ -29,7 +29,7 @@ const Header = () => {
     return (
         <div className='header'>
             {items.map((i,index)=>{
-                return <div onClick={()=>handleClick(index)} className={i.style}>{i.title}</div>
+                return <div key={index} onClick={()=>handleClick(index)} className={i.style}>{i.title}</div>
             })}
         </div>
     );

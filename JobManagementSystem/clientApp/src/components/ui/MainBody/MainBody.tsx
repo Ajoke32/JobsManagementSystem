@@ -1,21 +1,28 @@
 import './MainBody.css';
 import Header from "../Header/Header.tsx";
-import { useRef,useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { DelayType, ParsingOptions } from '../../../types/user/options/parsingOptions.ts';
+import { useEffect, useState } from 'react';
+import { ParsingOptions } from '../../../types/user/options/parsingOptions.ts';
+import { useTypedSelector } from '../../../store/hooks/useTypedSelector.ts';
+import { SettingsForm } from '../../SettingsForm/SettingsForm.tsx';
+import { useAppDispatch } from '../../../store/hooks/useDispatch.ts';
+import { stopParsing } from '../../../store/slices/eventSourceSlice.ts';
 
 
 
 
 const MainBody = () => {
 
-
-    
-
-    const [items,setItems] = useState<string[]>();
+    const dispatch = useAppDispatch();
 
 
-    const {register, handleSubmit,getValues} = useForm<ParsingOptions>();
+    const {parsingOptions,parsingStarted} = useTypedSelector(s=>s.eventSourceReducer);
+
+
+    const notificationsMap:Map<NotificationType,NotificationBase>  = new Map<NotificationType,NotificationBase>();
+
+    const [notifications,setNotifications] = useState<Map<NotificationType,NotificationBase>>();
+
+    const [items,setItems] = useState<NotificationBase[]>();
 
 
     const eventSourceUrl = "http://localhost:5041/message";
@@ -29,67 +36,80 @@ const MainBody = () => {
         //     setItems([...items,...item]);
         // }
         eventSource.onmessage = function(event){
+            const data:NotificationBase = event.data as NotificationBase;
+            
+            if(data.type === NotificationType.Terminated
+                ||data.type === NotificationType.Fail
+                ||data.type === NotificationType.Finished){
+                
+
+                dispatch(stopParsing())
+            }
+
+            if(data.type === NotificationType.Success){
+                notificationsMap.set(data.type,data);
+                setNotifications({...notificationsMap});
+            }
+            
             console.log(JSON.parse(event.data));
         }       
     }
+        
+    useEffect(()=>{
+        if(parsingOptions!==null){
+            connectToEvent();
+            runParsing(parsingOptions);
+        }
+    },[parsingOptions]);
     
 
-    /*TODO: TO REDUX*/ 
-
     const runParsing = function(data:ParsingOptions){
-        
-        fetch("http://localhost:5041/parse",
-        {
+        fetch("http://localhost:5041/parse",{
             method:"POST",
             body:JSON.stringify(data)
         }).then(res=>{
-
            console.log(res);
-
         }).catch(err=>{
             console.log(err);
         })
     }
 
-    const onSubmit: SubmitHandler<ParsingOptions> = data =>{
-        connectToEvent();
-        runParsing(data);
-    };
 
     return (
         <>
             <Header />
             <div className='main-wrapper'>
     
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className='select-group'>
-                        <span>Delay type</span>
-                        <select {...register("delayType")} value={getValues('delayType')}>
-                            <option value={DelayType.Thread}>Thread</option>
-                            <option value={DelayType.Task}>Task</option>
-                            <option value={DelayType.Chrome}>Driver</option>
-                        </select>    
+               <div>
+                <SettingsForm/>
+               </div>
+               {notifications!==undefined?
+                <div>
+                    <h4>Parsing status info</h4>
+                    <div>
+                        <span>{notifications.get(NotificationType.Success)?.description}</span>
                     </div>
-
-                    <div className='select-group'>
-                        <span>Enter delay</span>
-                        <input {...register('delayMs')} type="number" placeholder='1000' />    
+                    <div>
+                        <span>{(notifications.get(NotificationType.SuccessWithValue) as GenericNotification)?.description}</span>
+                        <span>{(notifications.get(NotificationType.SuccessWithValue) as GenericNotification)?.message}</span>
                     </div>
-
-                    
-                    <div className='select-group'>
-                        <span>Display parsing progrees(parsed pages)</span>
-                        <input {...register('sendParsedPagesNotification')} type="checkbox" placeholder='1000' />    
+                    <div>
+                        <span>{notifications.get(NotificationType.Terminated)?.description}</span>
                     </div>
-
-                    <div className='select-group'>
-                        <span>Display parsing progress (parsed items)</span>
-                        <input {...register('sendPercentageNotification')} type="checkbox" placeholder='1000' />    
+                    <div>
+                        <span>{notifications.get(NotificationType.Fail)?.description}</span>
                     </div>
-
-                    <button>Submit</button>
-                </form>
-            
+                    <div>
+                        <span>{notifications.get(NotificationType.Finished)?.description}</span>
+                    </div>
+                </div>
+                :
+                <div>
+                    Parsing information will displayed here
+                </div>}
+                <div>
+                    Parsing values can be displayed here
+                </div>
             </div>
         </>
     );

@@ -45,6 +45,20 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
+select,input[type="text"],input[type="number"]{
+  padding:10px 15px;
+  border-radius: 5px;
+  outline: none;
+  border:none;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+input[type="checkbox"]{
+  width: 20px;
+  height:20px;
+  border:1px solid #2b2d42;
+  cursor: pointer;
+}
 button:hover {
   border-color: #646cff;
 }
