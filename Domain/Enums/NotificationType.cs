@@ -1,4 +1,4 @@
-﻿namespace JobManagementSystem.Selenium.Options;
+﻿namespace Domain.Enums;
 
 [Flags]
 public enum NotificationType

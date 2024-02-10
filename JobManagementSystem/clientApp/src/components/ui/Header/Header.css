@@ -2,8 +2,12 @@
 .header {
     display: flex;
     gap: 25px;
+    margin-bottom: 5px;
+    padding: 5px 10px;
 }
-
+.header>div{
+    cursor: pointer;
+}
 .active-item{
     background-color: lightblue;
 }

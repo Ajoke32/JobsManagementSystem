@@ -6,4 +6,18 @@
     box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
     width: 80%;
     border-radius: 8px;
+    gap: 50px;
+    height: 80vh;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+}
+.main-wrapper>div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 300px;
+    min-height: 300px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border: 1px solid #e2eafc;
+    padding: 10px;
 }
